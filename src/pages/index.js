@@ -1,11 +1,14 @@
 import Image from "next/image";
-import { Geist, Geist_Mono,Inter } from "next/font/google";
+import { Geist, Geist_Mono, Inter } from "next/font/google";
 import NewCastleImage from "../../public/newCastle.svg";
 import Arsenal from "../../public/arsenal.svg";
 import TeamCard from "@/components/TeamCard";
 import TicketCountSelector from "@/components/TicketCountSelector";
 import TicketFiltersHeader from "@/components/TicketFiltersHeader";
 import TicketCard from "@/components/ticketCard";
+import FeaturesList from "@/components/FeaturesList";
+import PaymentGateway from "@/components/paymentGatewayList";
+import CheckoutComponent from "@/components/PaymentDisplay";
 
 const geistSans = Inter({
   variable: "Inter",
@@ -98,6 +101,39 @@ const ticketsData = [
   },
 ];
 
+const featureListOptions = [
+  {
+    title: "VIP",
+    description: "Enjoy exclusive access to VIP lounges and services.",
+    titleKey: "vip",
+  },
+  {
+    title: "Seating",
+    description: "Choose from a variety of seating options.",
+    titleKey: "seating",
+  },
+  {
+    title: "Restricted",
+    description: "Some restrictions apply to this ticket type.",
+    titleKey: "restricted",
+  },
+  {
+    title: "Parking",
+    description: "Parking is available at the venue.",
+    titleKey: "parking",
+  },
+  {
+    title: "No Restrictions",
+    description: "This ticket has no restrictions.",
+    titleKey: "noRestrictions",
+  },
+  {
+    title: "Mobile Tickets",
+    description: "Receive your tickets directly on your mobile device.",
+    titleKey: "mobileTickets",
+  },
+];
+
 export default function Home() {
   return (
     <div
@@ -111,6 +147,13 @@ export default function Home() {
           <TicketCard key={ticket.id} ticket={ticket} />
         ))}
       </div>
+      <div className="space-y-4 max-w-2xl">
+        {featureListOptions.map((feature) => (
+          <FeaturesList key={feature.key} {...feature} />
+        ))}
+      </div>
+      <PaymentGateway  />
+      <CheckoutComponent />
     </div>
   );
 }
